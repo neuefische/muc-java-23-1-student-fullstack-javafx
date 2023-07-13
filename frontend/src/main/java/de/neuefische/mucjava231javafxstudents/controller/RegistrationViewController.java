@@ -47,7 +47,7 @@ public class RegistrationViewController {
     }
 
     private boolean isEveryTextFieldValid() {
-        String EMAIL_PATTERN_REGEX = "^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$";
+        String EMAIL_PATTERN_REGEX = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}$";
         Pattern emailPattern = Pattern.compile(EMAIL_PATTERN_REGEX);
 
         if (firstNameField.getText() == null || firstNameField.getText().isEmpty()) {
@@ -56,7 +56,7 @@ public class RegistrationViewController {
         } else if (lastNameField.getText() == null || lastNameField.getText().isEmpty()) {
             labelErrorMessage.setText("Bitte gib einen Nachnamen ein, der mind. 2 Zeichen lang ist");
             return false;
-        } else if (emailPattern.matcher(emailField.getText()).matches() == false) {
+        } else if (!emailPattern.matcher(emailField.getText()).matches()) {
             labelErrorMessage.setText("Bitte gib eine gültige E-Mail-Adresse im Format <vorname@nachname.de> ein");
             return false;
         } else if (courseOfStudiesField.getText() == null || courseOfStudiesField.getText().isEmpty()) {

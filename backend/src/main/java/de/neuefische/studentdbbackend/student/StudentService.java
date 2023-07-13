@@ -82,7 +82,7 @@ public class StudentService {
     public StudentResponseDto getStudentByMatriculationNumber(String matriculationNumber) {
         Student student = studentRepository
                 .findByMatriculationNumber(matriculationNumber)
-                .orElseThrow(() -> new StudentNotFoundException("Student with matriculation number " + matriculationNumber + " not found"));
+                .orElseThrow(() -> new StudentNotFoundException(matriculationNumber));
 
         return StudentResponseDto.builder()
                 .matriculationNumber(student.getMatriculationNumber())
@@ -116,7 +116,7 @@ public class StudentService {
     public StudentResponseDto updateStudent(String matriculationNumber, NewStudentDto updateStudentDto) {
         Student student = studentRepository
                 .findByMatriculationNumber(matriculationNumber)
-                .orElseThrow(() -> new StudentNotFoundException("Student with matriculation number " + matriculationNumber + " not found"));
+                .orElseThrow(() -> new StudentNotFoundException(matriculationNumber));
 
         student.setFirstName(updateStudentDto.getFirstName());
         student.setLastName(updateStudentDto.getLastName());
@@ -137,7 +137,7 @@ public class StudentService {
     public void deleteStudent(String matriculationNumber) {
         Student studentToDelete = studentRepository
                 .findByMatriculationNumber(matriculationNumber)
-                .orElseThrow(() -> new StudentNotFoundException("Student with matriculation number " + matriculationNumber + " not found"));
+                .orElseThrow(() -> new StudentNotFoundException(matriculationNumber));
         studentRepository.delete(studentToDelete);
     }
 
