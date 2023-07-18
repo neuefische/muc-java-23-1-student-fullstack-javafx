@@ -1,6 +1,7 @@
 package de.neuefische.mucjava231javafxstudents.controller;
 
 import de.neuefische.mucjava231javafxstudents.model.Student;
+import de.neuefische.mucjava231javafxstudents.security.AuthenticationService;
 import de.neuefische.mucjava231javafxstudents.service.SceneSwitchService;
 import de.neuefische.mucjava231javafxstudents.service.StudentService;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ public class AllStudentsViewController {
     private Button deleteStudentButton;
 
     private final StudentService studentService = StudentService.getInstance();
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
 
     public void initialize() {
@@ -63,6 +65,7 @@ public class AllStudentsViewController {
 
     @FXML
     public void deleteSelectedStudent() {
-        studentService.deleteStudent(listView.getSelectionModel().getSelectedItem().matriculationNumber(), listView);
+        authenticationService.getSessionId();
+        studentService.deleteStudent(listView.getSelectionModel().getSelectedItem().matriculationNumber(), listView, authenticationService.getSessionId());
     }
 }

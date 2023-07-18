@@ -11,7 +11,6 @@ import javafx.scene.control.ListView;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 import java.net.http.HttpClient;
 
@@ -33,7 +32,19 @@ public class StudentService {
         return instance;
     }
 
-    public Student createNewStudent(StudentWithoutMatriculationNumber student) {
+    public List<Student> getAllStudents() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students"))
+                .header("Accept", "application/json")
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(responseBody -> mapToStudentList(responseBody))
+                .join();
+    }
+
+    public Student createNewStudent(StudentWithoutMatriculationNumber student, String sessionId) {
         try {
             String requestBody = objectMapper.writeValueAsString(student);
 
@@ -41,6 +52,7 @@ public class StudentService {
                     .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students"))
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
+                    .header("Cookie", "JSESSIONID=" + sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
@@ -54,7 +66,7 @@ public class StudentService {
         }
     }
 
-    public Student updateStudent(Student student) {
+    public Student updateStudent(Student student, String sessionId) {
         try {
             String requestBody = objectMapper.writeValueAsString(student);
 
@@ -62,6 +74,7 @@ public class StudentService {
                     .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students/" + student.matriculationNumber()))
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
+                    .header("Cookie", "JSESSIONID=" + sessionId)
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
@@ -75,21 +88,10 @@ public class StudentService {
         }
     }
 
-    public List<Student> getAllStudents() {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students"))
-                .header("Accept", "application/json")
-                .build();
-
-        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(responseBody -> mapToStudentList(responseBody))
-                .join();
-    }
-
-    public void deleteStudent(String matriculationNumberOfStudentToDelete, ListView<Student> listView) {
+    public void deleteStudent(String matriculationNumberOfStudentToDelete, ListView<Student> listView, String sessionId) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students/" + matriculationNumberOfStudentToDelete))
+                .header("Cookie", "JSESSIONID=" + sessionId)
                 .DELETE()
                 .build();
 
