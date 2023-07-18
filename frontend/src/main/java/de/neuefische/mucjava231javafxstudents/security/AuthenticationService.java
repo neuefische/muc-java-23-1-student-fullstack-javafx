@@ -8,6 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Base64;
+import java.util.concurrent.CompletableFuture;
 
 public class AuthenticationService {
 
@@ -45,20 +46,7 @@ public class AuthenticationService {
             var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
             int statusCode = response.join().statusCode();
 
-            if (statusCode == 200) {
-                setUsername(response.join().body());
-                String responseSessionId = response.join().headers().firstValue("Set-Cookie").orElseThrow();
-                String sessionId = responseSessionId.substring(11, responseSessionId.indexOf(";"));
-                setSessionId(sessionId);
-                return true;
-            } else {
-                if (statusCode == 401) {
-                    setErrorMessage("Registration failed. Email taken?");
-                } else {
-                    setErrorMessage("Something went wrong");
-                }
-                return false;
-            }
+            return handleStatusCheckAndSetSessionId(statusCode, response, "Registration failed. Email duplicate?");
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -74,20 +62,7 @@ public class AuthenticationService {
         var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.join().statusCode();
 
-        if (statusCode == 200) {
-            setUsername(response.join().body());
-            String responseSessionId = response.join().headers().firstValue("Set-Cookie").orElseThrow();
-            String sessionId = responseSessionId.substring(11, responseSessionId.indexOf(";"));
-            setSessionId(sessionId);
-            return true;
-        } else {
-            if (statusCode == 401) {
-                setErrorMessage("Login failed. Username or password is wrong!");
-            } else {
-                setErrorMessage("Something went wrong");
-            }
-            return false;
-        }
+        return handleStatusCheckAndSetSessionId(statusCode, response, "Login failed. Username or password is wrong!");
     }
 
     public boolean logout() {
@@ -105,6 +80,23 @@ public class AuthenticationService {
         } else {
             if (statusCode == 401) {
                 setErrorMessage("Logout failed");
+            } else {
+                setErrorMessage("Something went wrong");
+            }
+            return false;
+        }
+    }
+
+    private boolean handleStatusCheckAndSetSessionId(int statusCode, CompletableFuture<HttpResponse<String>> response, String errorMessage) {
+        if (statusCode == 200) {
+            setUsername(response.join().body());
+            String responseSessionId = response.join().headers().firstValue("Set-Cookie").orElseThrow();
+            String sessionId = responseSessionId.substring(11, responseSessionId.indexOf(";"));
+            setSessionId(sessionId);
+            return true;
+        } else {
+            if (statusCode == 401) {
+                setErrorMessage(errorMessage);
             } else {
                 setErrorMessage("Something went wrong");
             }
