@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -8,14 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane fx:controller="de.neuefische.mucjava231javafxstudents.controller.WelcomeViewController"
-            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.neuefische.mucjava231javafxstudents.controller.WelcomeViewController">
     <top>
         <Label text="Universität Bestie Best" BorderPane.alignment="CENTER">
             <font>
-                <Font name="Comic Sans MS" size="17.0"/>
+                <Font name="Comic Sans MS" size="17.0" />
             </font>
         </Label>
     </top>
@@ -24,22 +22,40 @@
             <children>
                 <Label text="Willkommen an der besten Uni der Welt">
                     <font>
-                        <Font size="30.0"/>
+                        <Font size="30.0" />
                     </font>
                     <VBox.margin>
-                        <Insets top="30.0"/>
+                        <Insets top="30.0" />
                     </VBox.margin>
                 </Label>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                     <children>
-                        <Button onAction="#switchToAllStudentsView" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0"
-                                text="Alle Studenten sehen"/>
-                        <Button onAction="#switchToRegistrationView" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" text="Registrieren"/>
+                        <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#switchToAllStudentsView" prefHeight="25.0" prefWidth="145.0" text="Alle Studenten sehen">
+                            <styleClass>
+                                <String fx:value="btn" />
+                                <String fx:value="btn-lg" />
+                                <String fx:value="btn-primary" />
+                            </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#switchToRegistrationView" prefHeight="25.0" prefWidth="145.0" text="Registrieren">
+                            <styleClass>
+                                <String fx:value="btn" />
+                                <String fx:value="btn-lg" />
+                                <String fx:value="btn-danger" />
+                            </styleClass>
+                        </Button>
                     </children>
                 </HBox>
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="145.0" text="Logout">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-lg" />
+                  <String fx:value="btn-primary" />
+               </styleClass>
+            </Button>
             </children>
             <padding>
-                <Insets top="30.0"/>
+                <Insets top="30.0" />
             </padding>
         </VBox>
     </center>

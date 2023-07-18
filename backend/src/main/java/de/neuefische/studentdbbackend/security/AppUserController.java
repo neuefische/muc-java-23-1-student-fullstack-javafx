@@ -1,5 +1,6 @@
 package de.neuefische.studentdbbackend.security;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -31,4 +32,10 @@ public class AppUserController {
         return appUserService.register(newAppUser);
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
+        SecurityContextHolder.clearContext();
+        return "anonymousUser";
+    }
 }

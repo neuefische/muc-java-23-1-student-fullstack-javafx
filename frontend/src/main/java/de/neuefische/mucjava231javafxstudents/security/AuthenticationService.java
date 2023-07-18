@@ -54,11 +54,10 @@ public class AuthenticationService {
             } else {
                 if (statusCode == 401) {
                     setErrorMessage("Registration failed. Email taken?");
-                    return false;
                 } else {
                     setErrorMessage("Something went wrong");
-                    return false;
                 }
+                return false;
             }
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -84,11 +83,32 @@ public class AuthenticationService {
         } else {
             if (statusCode == 401) {
                 setErrorMessage("Login failed. Username or password is wrong!");
-                return false;
             } else {
                 setErrorMessage("Something went wrong");
-                return false;
             }
+            return false;
+        }
+    }
+
+    public boolean logout() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(STUDENTS_URL_BACKEND + "/api/users/logout"))
+                .POST(HttpRequest.BodyPublishers.ofString(""))
+                .header("Cookie", "JSESSIONID=" + sessionId)
+                .build();
+
+        var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        int statusCode = response.join().statusCode();
+
+        if (statusCode == 200) {
+            return true;
+        } else {
+            if (statusCode == 401) {
+                setErrorMessage("Logout failed");
+            } else {
+                setErrorMessage("Something went wrong");
+            }
+            return false;
         }
     }
 

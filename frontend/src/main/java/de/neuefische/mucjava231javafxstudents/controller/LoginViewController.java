@@ -29,10 +29,6 @@ public class LoginViewController {
 
     public void login(ActionEvent event) throws IOException {
         if (authenticationService.login(userNameTextField.getText(), passwordField.getText())) {
-            errorMessageLabel.setText("Login successful. Welcome back, " + authenticationService.getUsername() + "!");
-
-            System.out.println("LoginController: " + authenticationService.getSessionId());
-
             sceneSwitchService.switchToWelcomeView((Stage) userNameTextField.getScene().getWindow());
         } else {
             errorMessageLabel.setText(authenticationService.getErrorMessage());
