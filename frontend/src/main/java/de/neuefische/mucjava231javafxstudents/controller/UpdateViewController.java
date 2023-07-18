@@ -1,6 +1,7 @@
 package de.neuefische.mucjava231javafxstudents.controller;
 
 import de.neuefische.mucjava231javafxstudents.model.Student;
+import de.neuefische.mucjava231javafxstudents.security.AuthenticationService;
 import de.neuefische.mucjava231javafxstudents.service.SceneSwitchService;
 import de.neuefische.mucjava231javafxstudents.service.StudentService;
 import javafx.event.ActionEvent;
@@ -26,6 +27,7 @@ public class UpdateViewController {
 
     private final StudentService studentService = StudentService.getInstance();
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     public void setStudentDataInFields(Student studentToEdit) {
         this.matriculationNumber = studentToEdit.matriculationNumber();
@@ -50,7 +52,7 @@ public class UpdateViewController {
                     emailField.getText(),
                     courseOfStudiesField.getText()
             );
-            Student updatedStudent = studentService.updateStudent(studentData);
+            Student updatedStudent = studentService.updateStudent(studentData, authenticationService.getSessionId());
 
             sceneSwitchService.switchToShowRegisteredStudentView(event, updatedStudent);
         }
