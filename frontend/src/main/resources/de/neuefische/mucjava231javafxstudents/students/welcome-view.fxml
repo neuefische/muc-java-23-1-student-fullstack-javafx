@@ -11,7 +11,7 @@
 
 <BorderPane fx:controller="de.neuefische.mucjava231javafxstudents.controller.WelcomeViewController"
             maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <Label text="Universität Bestie Best" BorderPane.alignment="CENTER">
             <font>

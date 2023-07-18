@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<FlowPane prefHeight="539.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.neuefische.mucjava231javafxstudents.controller.RegistrationConfirmationViewController">
+<FlowPane prefHeight="539.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.neuefische.mucjava231javafxstudents.controller.RegistrationConfirmationViewController">
    <children>
       <VBox prefHeight="539.0" prefWidth="615.0" spacing="20.0">
          <children>

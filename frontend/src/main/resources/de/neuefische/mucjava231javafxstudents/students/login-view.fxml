@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" hgap="10" prefHeight="400" prefWidth="600" vgap="10" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.neuefische.mucjava231javafxstudents.controller.LoginViewController">
+<GridPane alignment="CENTER" hgap="10" prefHeight="400" prefWidth="600" vgap="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.neuefische.mucjava231javafxstudents.controller.LoginViewController">
     <Label text="Nutzername:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
     <TextField fx:id="userNameTextField" GridPane.columnIndex="1" />
 
