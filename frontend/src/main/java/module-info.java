@@ -5,12 +5,15 @@ module de.neuefische.mucjava231javafxstudents {
 
     requires java.net.http;
 
-    opens de.neuefische.mucjava231javafxstudents to javafx.fxml;
+    opens de.neuefische.mucjava231javafxstudents;
     exports de.neuefische.mucjava231javafxstudents;
 
-    opens de.neuefische.mucjava231javafxstudents.controller to javafx.fxml;
+    opens de.neuefische.mucjava231javafxstudents.controller;
     exports de.neuefische.mucjava231javafxstudents.controller;
 
-    opens de.neuefische.mucjava231javafxstudents.model to com.fasterxml.jackson.databind;
+    opens de.neuefische.mucjava231javafxstudents.model;
     exports de.neuefische.mucjava231javafxstudents.model;
+
+    opens de.neuefische.mucjava231javafxstudents.security;
+    exports de.neuefische.mucjava231javafxstudents.security;
 }
