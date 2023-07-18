@@ -10,7 +10,7 @@ import java.io.IOException;
 public class StudentDBApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("students/welcome-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("students/create-account-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
         stage.resizableProperty().set(false);
