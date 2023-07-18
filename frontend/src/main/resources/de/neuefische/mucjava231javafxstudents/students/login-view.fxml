@@ -23,13 +23,16 @@
     <Label prefHeight="17.0" prefWidth="147.0" text="Neuer Nutzer?" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.rowIndex="4" />
 
     <Button onAction="#switchToCreateAccountView" prefHeight="25.0" prefWidth="160.0" text="Registrieren" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-   <columnConstraints>
+    <Label fx:id="errorMessageLabel" prefHeight="17.0" prefWidth="148.0" textFill="#ff5a5a" GridPane.rowIndex="6" />
+
+    <columnConstraints>
       <ColumnConstraints maxWidth="160.0" minWidth="74.0" prefWidth="147.0" />
       <ColumnConstraints maxWidth="168.0" minWidth="71.0" prefWidth="163.0" />
       <ColumnConstraints maxWidth="100.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints maxWidth="100.0" minWidth="0.0" prefWidth="0.0" />
    </columnConstraints>
    <rowConstraints>
+      <RowConstraints />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />

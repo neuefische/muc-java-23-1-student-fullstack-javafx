@@ -25,7 +25,7 @@
     <Button onAction="#switchToLoginView" prefHeight="25.0" prefWidth="160.0" text="Zum Login" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
    <Label text="Email:" />
    <TextField fx:id="emailTextField" GridPane.columnIndex="1" />
-   <Label fx:id="errorMessageLabel" prefHeight="17.0" prefWidth="148.0" text="Labelasd Labelasd Labelasd Labelasd Labelasd Labelasd" GridPane.rowIndex="6" />
+   <Label fx:id="errorMessageLabel" prefHeight="17.0" prefWidth="148.0" GridPane.rowIndex="6" textFill="#ff5a5a" />
    <columnConstraints>
       <ColumnConstraints maxWidth="160.0" minWidth="74.0" prefWidth="147.0" />
       <ColumnConstraints maxWidth="168.0" minWidth="71.0" prefWidth="163.0" />
