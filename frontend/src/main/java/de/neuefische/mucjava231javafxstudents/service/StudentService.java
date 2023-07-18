@@ -38,7 +38,7 @@ public class StudentService {
             String requestBody = objectMapper.writeValueAsString(student);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(STUDENTS_URL_BACKEND))
+                    .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students"))
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
@@ -59,7 +59,7 @@ public class StudentService {
             String requestBody = objectMapper.writeValueAsString(student);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(STUDENTS_URL_BACKEND + "/" + student.matriculationNumber()))
+                    .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students/" + student.matriculationNumber()))
                     .header("Content-Type", "application/json")
                     .header("Accept", "application/json")
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
@@ -77,7 +77,7 @@ public class StudentService {
 
     public List<Student> getAllStudents() {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(STUDENTS_URL_BACKEND))
+                .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students"))
                 .header("Accept", "application/json")
                 .build();
 
@@ -89,7 +89,7 @@ public class StudentService {
 
     public void deleteStudent(String matriculationNumberOfStudentToDelete, ListView<Student> listView) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(STUDENTS_URL_BACKEND + "/" + matriculationNumberOfStudentToDelete))
+                .uri(URI.create(STUDENTS_URL_BACKEND + "/api/students/" + matriculationNumberOfStudentToDelete))
                 .DELETE()
                 .build();
 
