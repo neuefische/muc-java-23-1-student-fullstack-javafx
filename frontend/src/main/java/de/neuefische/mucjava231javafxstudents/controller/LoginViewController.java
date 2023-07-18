@@ -1,6 +1,6 @@
 package de.neuefische.mucjava231javafxstudents.controller;
 
-import de.neuefische.mucjava231javafxstudents.service.AuthenticationService;
+import de.neuefische.mucjava231javafxstudents.security.AuthenticationService;
 import de.neuefische.mucjava231javafxstudents.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
