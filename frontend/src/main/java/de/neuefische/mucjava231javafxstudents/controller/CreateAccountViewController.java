@@ -31,7 +31,7 @@ public class CreateAccountViewController {
 
             System.out.println("CreateAccountViewController: " + authenticationService.getSessionId());
 
-            sceneSwitchService.switchToWelcomeView((Stage) userNameTextField.getScene().getWindow());
+            sceneSwitchService.switchToLoginView(event);
         } else {
             errorMessageLabel.setText(authenticationService.getErrorMessage());
         }

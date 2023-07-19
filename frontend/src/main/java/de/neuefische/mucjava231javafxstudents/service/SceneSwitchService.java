@@ -23,15 +23,6 @@ public class SceneSwitchService {
         return instance;
     }
 
-    public void switchToWelcomeView(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/neuefische/mucjava231javafxstudents/students/welcome-view.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-//        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-    }
-
     public void switchToWelcomeView(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/neuefische/mucjava231javafxstudents/students/welcome-view.fxml"));
         Parent root = loader.load();

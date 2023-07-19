@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -29,7 +28,7 @@ public class LoginViewController {
 
     public void login(ActionEvent event) throws IOException {
         if (authenticationService.login(userNameTextField.getText(), passwordField.getText())) {
-            sceneSwitchService.switchToWelcomeView((Stage) userNameTextField.getScene().getWindow());
+            sceneSwitchService.switchToWelcomeView(event);
         } else {
             errorMessageLabel.setText(authenticationService.getErrorMessage());
         }
