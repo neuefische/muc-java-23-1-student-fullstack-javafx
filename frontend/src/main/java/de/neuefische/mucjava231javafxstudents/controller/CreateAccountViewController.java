@@ -28,9 +28,6 @@ public class CreateAccountViewController {
     public void createNewAccount(ActionEvent event) throws IOException {
         if (authenticationService.createNewAccount(emailTextField.getText(), userNameTextField.getText(), passwordField.getText())) {
             errorMessageLabel.setText("Registration successful. Welcome " + authenticationService.getUsername() + "!");
-
-            System.out.println("CreateAccountViewController: " + authenticationService.getSessionId());
-
             sceneSwitchService.switchToLoginView(event);
         } else {
             errorMessageLabel.setText(authenticationService.getErrorMessage());

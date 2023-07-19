@@ -24,10 +24,8 @@ public class WelcomeViewController {
 
     @FXML
     public void logout(ActionEvent event) throws IOException {
-        if (authenticationService.getSessionId() != null) {
-            if(authenticationService.logout()) {
+        if (authenticationService.getSessionId() != null && (authenticationService.logout())) {
                 sceneSwitchService.switchToLoginView(event);
-            }
         }
     }
 }
