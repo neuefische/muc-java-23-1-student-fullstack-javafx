@@ -80,7 +80,7 @@ public class StudentService {
 
             return client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
-                    .thenApply(responseBody -> mapToStudent(responseBody))
+                    .thenApply(this::mapToStudent)
                     .join();
 
         } catch (JsonProcessingException e) {

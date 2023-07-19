@@ -91,8 +91,7 @@ public class AuthenticationService {
         if (statusCode == 200) {
             setUsername(response.join().body());
             String responseSessionId = response.join().headers().firstValue("Set-Cookie").orElseThrow();
-            String sessionId = responseSessionId.substring(11, responseSessionId.indexOf(";"));
-            setSessionId(sessionId);
+            setSessionId(responseSessionId.substring(11, responseSessionId.indexOf(";")));
             return true;
         } else {
             if (statusCode == 401) {
