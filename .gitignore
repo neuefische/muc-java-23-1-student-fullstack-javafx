@@ -6,3 +6,4 @@ backend/mvnw
 backend/mvnw.cmd
 
 *.iml
+/htmlReport
