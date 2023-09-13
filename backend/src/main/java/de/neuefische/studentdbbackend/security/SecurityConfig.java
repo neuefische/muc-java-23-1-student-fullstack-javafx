@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(c -> {
                     c.requestMatchers(HttpMethod.POST, "/api/students").authenticated();
                     c.requestMatchers(HttpMethod.PUT, "/api/students/**").authenticated();
-                    c.requestMatchers(HttpMethod.DELETE, "/api/students/**").hasRole("ADMIN");
+                    c.requestMatchers(HttpMethod.DELETE, "/api/students/**").hasRole(UserRoles.ADMIN.name());
                     c.anyRequest().permitAll();
                 })
                 .httpBasic(Customizer.withDefaults())

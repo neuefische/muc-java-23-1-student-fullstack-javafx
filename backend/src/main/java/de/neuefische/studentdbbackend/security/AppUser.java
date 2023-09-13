@@ -10,6 +10,6 @@ public record AppUser(
         String password,
         @Indexed(unique = true)
         String email,
-        String role
+        UserRoles role
 ) {
 }

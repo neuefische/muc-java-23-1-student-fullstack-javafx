@@ -37,7 +37,7 @@ public class AppUserService implements UserDetailsService {
                 newAppUser.username(),
                 passwordEncoder.encode(newAppUser.password()),
                 newAppUser.email(),
-                "USER"
+                UserRoles.USER
         );
         AppUser savedAppUser = appUserRepository.save(appUser);
         return new AppUserResponse(savedAppUser.id(), savedAppUser.username(), savedAppUser.email(), savedAppUser.role());
