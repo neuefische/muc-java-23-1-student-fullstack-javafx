@@ -13,11 +13,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WithMockUser(username = "user")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest
 @AutoConfigureMockMvc
 class StudentControllerIntegrationTest {
@@ -41,14 +43,35 @@ class StudentControllerIntegrationTest {
         );
     }
 
-    @DirtiesContext
     @Test
-    void getAllStudents_shouldReturnAllEntries_whenTwoEntriesAreSaved() throws Exception {
+    void getAllStudents_shouldReturnAllEntries_whenTwoEntriesAreSavedAndNoSearchParamsAreDefined() throws Exception {
         mockMvc.perform(get(BASE_URL))
                 .andExpect(jsonPath("[0].matriculationNumber").isNotEmpty())
                 .andExpect(jsonPath("[0].firstName").value(student1.getFirstName()))
                 .andExpect(jsonPath("[1].matriculationNumber").isNotEmpty())
                 .andExpect(jsonPath("[1].firstName").value(student2.getFirstName()));
+    }
+
+    @Test
+    void getAllStudentsByFirstName_shouldReturnOneEntry_whenOneFittingEntryExists() throws Exception {
+        mockMvc.perform(get(BASE_URL + "?firstName=" + student1.getFirstName()))
+                .andExpect(jsonPath("[0].firstName").value(student1.getFirstName()))
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    void getAllStudentsByLastName_shouldReturnOneEntry_whenOneFittingEntryExists() throws Exception {
+        mockMvc.perform(get(BASE_URL + "?lastName=" + student1.getLastName()))
+                .andExpect(jsonPath("[0].lastName").value(student1.getLastName()))
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    void getAllStudentsByCourse_shouldReturnTwoEntry_whenTwoFittingEntriesExists() throws Exception {
+        mockMvc.perform(get(BASE_URL + "?courseOfStudies=" + student1.getCourseOfStudies()))
+                .andExpect(jsonPath("[0].courseOfStudies").value(student1.getCourseOfStudies()))
+                .andExpect(jsonPath("[1].courseOfStudies").value(student2.getCourseOfStudies()))
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
@@ -72,7 +95,6 @@ class StudentControllerIntegrationTest {
                 .andExpect(jsonPath("matriculationNumber").value(firstStudent.getMatriculationNumber()));
     }
 
-    @DirtiesContext
     @Test
     void addStudent_shouldCreateNewStudentWithMatricleNumber_whenValidDataIsProvided() throws Exception {
         NewStudentDto student3 = new NewStudentDto("Zacky", "Vengeance", "zacky@a7x.com", "Avenged Sevenfold");
@@ -86,7 +108,6 @@ class StudentControllerIntegrationTest {
                 );
     }
 
-    @DirtiesContext
     @Test
     void addStudent_shouldReturn400_whenInvalidDataIsProvided() throws Exception {
         NewStudentDto studentMissingFirstName = new NewStudentDto(null, "Vengeance", "zacky@a7x.com", "Avenged Sevenfold");
@@ -116,7 +137,6 @@ class StudentControllerIntegrationTest {
     }
 
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DirtiesContext
     @Test
     void updateStudent_shouldUpdateStudentAccordingly_whenUserHasAdminRoleAndStudentExists() throws Exception {
         String studentsListAsString = mockMvc.perform(get(BASE_URL))
@@ -137,7 +157,6 @@ class StudentControllerIntegrationTest {
                 );
     }
 
-    @DirtiesContext
     @Test
     void updateStudent_shoulReturn400_whenValuesInBodyArentValidAndMatriculationNumberIsInvalid() throws Exception {
         String THIS_MATRICULATION_NUMBER_DOES_NOT_EXIST = "THIS_MATRICULATION_NUMBER_DOES_NOT_EXIST";
@@ -149,7 +168,6 @@ class StudentControllerIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DirtiesContext
     @Test
     void updateStudent_shoulReturn400_whenValuesInBodyArentValidAndMatriculationNumberIsValid() throws Exception {
         String studentsListAsString = mockMvc.perform(get(BASE_URL))
@@ -167,7 +185,6 @@ class StudentControllerIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @DirtiesContext
     @Test
     void updateStudent_shoulReturn404_whenStudentDoesntExist() throws Exception {
         String THIS_MATRICULATION_NUMBER_DOES_NOT_EXIST = "THIS_MATRICULATION_NUMBER_DOES_NOT_EXIST";
@@ -180,7 +197,6 @@ class StudentControllerIntegrationTest {
     }
 
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DirtiesContext
     @Test
     void deleteStudent_shouldDeleteStudentByMatriculationNumber_whenStudentExistsAndUserHasAdminRole() throws Exception {
         String studentsListAsString = mockMvc.perform(get(BASE_URL))
@@ -198,7 +214,6 @@ class StudentControllerIntegrationTest {
     }
 
     @WithMockUser(username = "admin", roles = {"ADMIN"})
-    @DirtiesContext
     @Test
     void deleteStudent_shouldReturn404_whenStudentDoesntExistAndUserHasAdminRole() throws Exception {
         String THIS_MATRICULATION_NUMBER_DOES_NOT_EXIST = "THIS_MATRICULATION_NUMBER_DOES_NOT_EXIST";
@@ -218,13 +233,5 @@ class StudentControllerIntegrationTest {
 
         mockMvc.perform(delete(BASE_URL + "/" + originalStudent.getMatriculationNumber()))
                 .andExpect(status().isForbidden());
-    }
-
-    @Test
-    void handleStudentNotFoundException() throws Exception {
-    }
-
-    @Test
-    void handleValidationException() throws Exception {
     }
 }
