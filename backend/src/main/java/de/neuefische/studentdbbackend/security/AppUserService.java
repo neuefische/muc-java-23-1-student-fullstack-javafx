@@ -1,6 +1,7 @@
 package de.neuefische.studentdbbackend.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.List;
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,16 +32,12 @@ public class AppUserService implements UserDetailsService {
 
     public AppUserResponse register(NewAppUser newAppUser){
 
-        Argon2PasswordEncoder passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
-
-        AppUser appUser = new AppUser(
-                null,
+        authenticationManager.authenticate(new User(
                 newAppUser.username(),
-                passwordEncoder.encode(newAppUser.password()),
-                newAppUser.email(),
-                UserRoles.USER
-        );
-        AppUser savedAppUser = appUserRepository.save(appUser);
-        return new AppUserResponse(savedAppUser.id(), savedAppUser.username(), savedAppUser.email(), savedAppUser.role());
+                newAppUser.password(),
+                List.of(new SimpleGrantedAuthority("ROLE_USER"))
+        ));
     }
+
+
 }
