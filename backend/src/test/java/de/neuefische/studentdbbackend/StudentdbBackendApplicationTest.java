@@ -1,15 +1,13 @@
 package de.neuefische.studentdbbackend;
 
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class StudentdbBackendApplicationTest {
+public class StudentdbBackendApplicationTest {
 
-    void test() {
+    @Test
+    public void applicationContextLoads() {
 
     }
-
-
 }
