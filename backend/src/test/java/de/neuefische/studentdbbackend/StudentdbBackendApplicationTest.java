@@ -1,15 +1,14 @@
 package de.neuefische.studentdbbackend;
 
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
-class StudentdbBackendApplicationTest {
+public class StudentdbBackendApplicationTest {
 
-    void test() {
-
+    // As kindly suggested by https://stackoverflow.com/a/64362419/11515036
+    @Test
+    @SuppressWarnings("squid:S2699")
+    public void applicationContextLoads() {
     }
-
-
 }
