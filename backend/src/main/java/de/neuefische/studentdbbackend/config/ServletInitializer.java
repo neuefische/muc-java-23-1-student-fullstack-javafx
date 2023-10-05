@@ -1,5 +1,6 @@
-package de.neuefische.studentdbbackend;
+package de.neuefische.studentdbbackend.config;
 
+import de.neuefische.studentdbbackend.StudentdbBackendApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
