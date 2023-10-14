@@ -2,6 +2,8 @@ package de.neuefische.studentdbbackend.student;
 
 import de.neuefische.studentdbbackend.util.MatriculationNumberService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,10 +12,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService {
 
+    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
+
     private final StudentRepository studentRepository;
     private final MatriculationNumberService matriculationNumberService;
 
     public List<StudentResponseDto> getAllStudents() {
+        logger.info("Get all students");
+        logger.debug("Available students: {}", studentRepository.findAll());
+
         return studentRepository.findAll()
                 .stream()
                 .map(student -> StudentResponseDto.builder()
@@ -27,6 +34,8 @@ public class StudentService {
     }
 
     public List<StudentResponseDto> getStudentsByFirstName(String firstName) {
+        logger.info("Get students by first name {}", firstName);
+
         return studentRepository.findAllByFirstNameEqualsIgnoreCase(firstName)
                 .stream()
                 .map(student -> StudentResponseDto.builder()
